@@ -1,15 +1,17 @@
-import { createElement, render } from "./zeact";
+import { createElement, render, useState } from "./zeact";
 import "./index.css";
 
 const Zeact = {
   createElement,
   render,
+  useState,
 };
 
 /** @jsx Zeact.createElement */
-function App(props) {
-  return <h1>Hi {props.name}</h1>;
+function Counter() {
+  const [state, setState] = Zeact.useState(1);
+  return <h1 onClick={() => setState((c) => c + 1)}>Count: {state}</h1>;
 }
-const element = <App name="foo" />;
-const container = document.getElementById("root") as HTMLElement;
+const element = <Counter />;
+const container = document.getElementById("root");
 Zeact.render(element, container);
