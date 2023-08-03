@@ -7,15 +7,9 @@ const Zeact = {
 };
 
 /** @jsx Zeact.createElement */
-const element = (
-  <div id="foo">
-    <a>bar</a>
-    <b />
-  </div>
-);
-
-console.log(element);
-
+function App(props) {
+  return <h1>Hi {props.name}</h1>;
+}
+const element = <App name="foo" />;
 const container = document.getElementById("root") as HTMLElement;
-
 Zeact.render(element, container);
