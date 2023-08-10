@@ -155,3 +155,30 @@ Amazing guide to build the basic features of React from scratch https://pomb.us/
   - inside updateDom
     - remove old styles by setting to "" each style prop that isGone
     - set new or changed styles by setting each to the new value for each value that isNew
+- useEffect
+  - Add an effect to the Counter (e.g a console.log that runs when counter changes)
+  - declare a hasDepsChanged fn that takes in prevDeps and nextDeps, it checks for falsyness, compares length and checks if any of the deps is different
+  - declare a useEffect fn that takes effect and deps
+    - get the oldHook similar to useState
+    - use hasDepsChanged to compare oldHook deps and new deps
+    - define hook with
+      - 'tag' "effect"
+      - 'effect' if deps changed
+      - 'cancel' as the oldHook cancel value if deps changed
+      - 'deps'
+    - push new hook to wipFiber
+    - increase hookIndex
+  - In the commitWork fn
+    - in placement branch we call runEffects fn on fiber
+      - update dom in nested condition fiber.dom != null and run effects outside
+    - in update branch first we run cancelEffects on fiber, and after updating dom we call runEffects
+      - update dom in nested condition fiber.dom != null and cancel effects outside
+    - in deletion branch we call cancelEffects
+  - define runEffects fn
+    - takes a fiber
+    - from the fiber hooks, filter out everything that is not an effect or has a falsy effect value
+    - for all hooks with 'effect' tag, run the effect and assign the return value to the cancel
+  - define cancelEffects fn
+    - takes a fiber
+    - from the fiber hooks, filter out everything that is not an effect or has a falsy cancel value
+    - for all hooks with 'effect' tag, run cancel fnc
