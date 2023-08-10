@@ -146,3 +146,5 @@ Amazing guide to build the basic features of React from scratch https://pomb.us/
           - reset deletions array
       - run the actions: for each action in the oldHook queue, assign the hook state to the result of running the action
       - return the setState from useState as second element
+- Enable stuff like {todos.map(...)}
+  - in createElement fn flatten children before mapping with `flat()`

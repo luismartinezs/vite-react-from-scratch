@@ -7,6 +7,8 @@ const Zeact = {
   useState,
 };
 
+const todos = ["do chore 1", "do chore 2"];
+
 /** @jsx Zeact.createElement */
 function Counter() {
   const [state, setState] = Zeact.useState(1);
@@ -16,6 +18,9 @@ function Counter() {
       <button className="button" onClick={() => setState((c: number) => c + 1)}>
         Count: {state}
       </button>
+      {todos.map((todo) => (
+        <div>{todo}</div>
+      ))}
     </div>
   );
 }
