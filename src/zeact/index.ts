@@ -33,13 +33,30 @@ function createDom(fiber) {
   return dom
 }
 
+const isStyle = key => key === "style"
 const isEvent = key => key.startsWith("on")
 const isProperty = key =>
-  key !== "children" && !isEvent(key)
+  key !== "children" && !isEvent(key) && !isStyle(key)
 const isNew = (prev, next) => key =>
   prev[key] !== next[key]
 const isGone = (prev, next) => key => !(key in next)
 function updateDom(dom, prevProps, nextProps) {
+  const prevStyle = prevProps.style || {}
+  const nextStyle = nextProps.style || {}
+  // Remove old styles
+  Object.keys(prevStyle)
+    .filter(isGone(prevStyle, nextStyle))
+    .forEach(key => {
+      dom.style[key] = ""
+    })
+
+  // Set new or changed styles
+  Object.keys(nextStyle)
+    .filter(isNew(prevStyle, nextStyle))
+    .forEach(key => {
+      dom.style[key] = nextStyle[key]
+    })
+
   //Remove old or changed event listeners
   Object.keys(prevProps)
     .filter(isEvent)

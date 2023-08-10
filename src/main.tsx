@@ -14,7 +14,13 @@ function Counter() {
   const [state, setState] = Zeact.useState(1);
   return (
     <div>
-      <h1>React from scratch</h1>
+      <h1
+        style={{
+          textTransform: "uppercase",
+        }}
+      >
+        React from scratch
+      </h1>
       <button className="button" onClick={() => setState((c: number) => c + 1)}>
         Count: {state}
       </button>

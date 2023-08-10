@@ -146,5 +146,12 @@ Amazing guide to build the basic features of React from scratch https://pomb.us/
           - reset deletions array
       - run the actions: for each action in the oldHook queue, assign the hook state to the result of running the action
       - return the setState from useState as second element
+- EVERYTHING AFTER THIS IS EXTRA AND COMING FROM CONTRIBUTORS
 - Enable stuff like {todos.map(...)}
-  - in createElement fn flatten children before mapping with `flat()`
+  - in createElement fn flatten children before mapping
+- Styles object
+  - define isStyle filter fn
+  - filter out style from isProperty
+  - inside updateDom
+    - remove old styles by setting to "" each style prop that isGone
+    - set new or changed styles by setting each to the new value for each value that isNew
